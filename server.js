@@ -9,7 +9,10 @@ const passport = require('passport');
 const loadPassport = require("./handlers/passport");
 const session = require("express-session")
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const bodyParser = require('body-parser');
+const flash = require('connect-flash');
 
+app.use(bodyParser.urlencoded({ extended: false }));
 loadPassport(passport)
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -22,6 +25,11 @@ app.use(session({
         db: db
     })
 }))
+app.use(passport.initialize());
+app.use(passport.session());
+
+// FLASH MESSAGES
+app.use(flash())
 
 
 app.use("/", express.static(path.join(__dirname, "public")))
