@@ -6,6 +6,4 @@ const db = new Sequelize('panelmgr', process.env.DATABASE_USER, process.env.DATA
     logging: false,
 })
 
-db.sync()
-
 module.exports = db
