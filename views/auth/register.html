@@ -5,5 +5,19 @@
 {% endblock %}
 
 {% block content %}
+{% if registerError.length > 0 %}
+<div class="alert alert-danger" role="alert">
+    {{ registerError }}
+</div>
+{% endif %}
 <p>Register</p>
+<form action="/auth/register" method="post">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit">Register</button>
+</form>
 {% endblock %}
