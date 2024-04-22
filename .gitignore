@@ -1,3 +1,7 @@
+# Bootstrap
+/public/css/main.css
+/public/css/main.css.map
+
 # Logs
 logs
 *.log
