@@ -12,6 +12,8 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 
+app.set("view engine", "html")
+
 app.use(bodyParser.urlencoded({ extended: false }));
 loadPassport(passport)
 app.use(session({

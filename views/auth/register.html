@@ -2,22 +2,24 @@
 
 {% block head %}
 <title>PanelMgr | Register</title>
+<link rel="stylesheet" href="/css/tailwind.css">
 {% endblock %}
 
 {% block content %}
-{% if registerError.length > 0 %}
-<div class="alert alert-danger" role="alert">
-    {{ registerError }}
+<div class="w-screen h-screen flex flex-col items-center justify-center bg-slate-800">
+    {% if registerError.length > 0 %}
+    <div class="w-64 p-3 bg-slate-600 text-white font-bold rounded-2xl flex flex-col items-center border-2 border-red-500 ">
+        {{ registerError }}
+    </div>
+    {% endif %}
+    <div class="h-1/6 p-20 bg-slate-700 flex flex-col items-center justify-center rounded-2xl">
+        <p class="text-2xl text-white font-bold">Register</p>
+        <form class="flex flex-col items-center" action="/auth/register" method="post">
+            <input class="rounded-lg h-8 pl-2 bg-slate-700 border-2 border-slate-400 text-white" type="text" placeholder="Username" id="username" name="username" required>
+            <input class="rounded-lg h-8 pl-2 bg-slate-700 text-white" type="email" placeholder="Email" id="email" name="email" required>
+            <input class="rounded-lg h-8 pl-2 bg-slate-700 text-white" type="password" placeholder="Password" id="password" name="password" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
 </div>
-{% endif %}
-<p>Register</p>
-<form action="/auth/register" method="post">
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" required>
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit">Register</button>
-</form>
 {% endblock %}
