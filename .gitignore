@@ -1,6 +1,5 @@
 # Bootstrap
-/public/css/main.css
-/public/css/main.css.map
+/public/css/tailwind.css
 
 # Logs
 logs
