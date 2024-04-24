@@ -1,9 +1,11 @@
 const express = require('express');
-const { checkNotAuth } = require('../handlers/checkAuth');
+const { checkNotAuth, checkSetup } = require('../handlers/checkAuth');
 const User = require('../models/UserModel');
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const passport = require('passport')
+
+router.use(checkSetup)
 
 router.get("/login", checkNotAuth, function (req, res) {
     res.render("auth/login.html", { loginSuccess: req.flash("loginSuccess")})

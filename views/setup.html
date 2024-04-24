@@ -1,0 +1,45 @@
+{% extends "template.html" %}
+
+{% block head %}
+<title>PanelMgr | Setup</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+<div class="w-screen h-screen flex flex-col items-center justify-center bg-slate-800">
+    <div class="p-20 bg-slate-700 flex flex-col items-center justify-center rounded-2xl mt-5">
+        <h1 class="text-4xl text-white font-bold mb-5">PanelMgr</h1>
+        <form class="flex flex-col items-center" action="/setup" method="post">
+            <div class="flex flex-row">
+                <div class="flex flex-col items-center">
+                    <p class="text-2xl text-white font-bold mb-2">Basic setup</p>
+                    <div class="flex flex-row items-center">
+                        <label for="hostname" class="text-slate-400 text-lg mr-2"><i class="fa-solid fa-file-lines"></i></label>
+                        <input class="rounded-md h-10 pl-2 bg-slate-700 border-2 border-slate-400 text-white" type="text" placeholder="Hosting name" id="hostname" name="hostname" required>
+                    </div>
+                    <div class="flex flex-row items-center mt-1">
+                        <label for="pterourl" class="text-slate-400 text-lg mr-2"><i class="fa-solid fa-table-columns"></i></label>
+                        <input class="rounded-md h-10 pl-2 bg-slate-700 border-2 border-slate-400 text-white" type="text" placeholder="Ptero URL" id="pterourl" name="pterourl" required>
+                    </div>
+                    <div class="flex flex-row items-center mt-1">
+                        <label for="pteroapikey" class="text-slate-400 text-lg mr-2"><i class="fa-solid fa-key"></i></label>
+                        <input class="rounded-md h-10 pl-2 bg-slate-700 border-2 border-slate-400 text-white" type="password" placeholder="Ptero API Key" id="pteroapikey" name="pteroapikey" required>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center ml-2">
+                    <p class="text-2xl text-white font-bold mb-2">Admin user</p>
+                    <div class="flex flex-row items-center">
+                        <label for="hostname" class="text-slate-400 text-lg mr-2"><i class="fa-solid fa-address-card"></i></label>
+                        <input class="rounded-md h-10 pl-2 bg-slate-700 border-2 border-slate-400 text-white" type="number" placeholder="Your Ptero ID" id="pteroid" name="pteroid" required>
+                    </div>
+                    <div class="flex flex-row items-center mt-1">
+                        <label for="password" class="text-slate-400 text-lg mr-2"><i class="fa-solid fa-lock"></i></label>
+                        <input class="rounded-md h-10 pl-2 bg-slate-700 border-2 border-slate-400 text-white" type="password" placeholder="Your new password" id="password" name="password" required>
+                    </div>
+                </div>
+            </div>
+            <button class="bg-slate-800 hover:bg-slate-600 duration-300 text-white font-bold rounded-md h-10 w-40 mt-5" type="submit">Complete setup</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

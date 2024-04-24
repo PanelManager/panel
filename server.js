@@ -53,7 +53,9 @@ nunjucks.configure('views', {
 
 app.use("/auth", require("./routes/auth"));
 
-app.use("/", require("./routes/home"));
+app.use("/", require("./routes/index").home);
+
+app.use("/setup", require("./routes/index").setup)
 
 
 app.listen(8000, () => {
