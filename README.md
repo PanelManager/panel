@@ -11,6 +11,7 @@ exit
 ```
 
 ```sh
-npm run compilecss # Compile the bootstrap css files
+npm run css # Build the tailwind css files [production]
+npm run css-watch # Rebuilding the css files during changes [development]
 node server.js
 ```
