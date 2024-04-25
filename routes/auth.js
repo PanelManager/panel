@@ -3,7 +3,8 @@ const { checkNotAuth, checkSetup } = require('../handlers/checkAuth');
 const User = require('../models/UserModel');
 const router = express.Router()
 const bcrypt = require('bcrypt')
-const passport = require('passport')
+const passport = require('passport');
+const SettingsModel = require('../models/Settings');
 
 router.use(checkSetup)
 
@@ -18,8 +19,9 @@ router.post("/login", checkNotAuth, passport.authenticate("local", {
 }))
 
 
-router.get("/register", checkNotAuth, function (req, res) {
-    res.render("auth/register.html", { registerError: req.flash("registerError")})
+router.get("/register", checkNotAuth, async function (req, res) {
+    const hostname = await SettingsModel.findOne({where: {key: "hostname"}})
+    res.render("auth/register.html", { registerError: req.flash("registerError"), hostname: hostname.value})
 })
 
 router.post("/register", checkNotAuth, async function (req, res) {
