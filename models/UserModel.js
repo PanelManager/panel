@@ -23,7 +23,7 @@ const UserModel = db.define("User", {
     },
     ipAddress: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
         unique: true
     },
     credits: {
@@ -46,6 +46,6 @@ const UserModel = db.define("User", {
     tableName: "users",
 })
 
-UserModel.sync()
+UserModel.sync({alter: true})
 
 module.exports = UserModel

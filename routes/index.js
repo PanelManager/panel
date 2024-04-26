@@ -21,6 +21,7 @@ router2.post("/", checkNotSetup, async function (req, res) {
     Settings.create({key: "hostname", value: req.body.hostname, type: "string"})
     Settings.create({key: "pterourl", value: req.body.pterourl, type: "string"})
     Settings.create({key: "pteroapikey", value: req.body.pteroapikey, type: "string"})
+    Settings.create({key: "registerip", value: "false", type: "boolean"})
 
     // ADMIN SETUP
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
