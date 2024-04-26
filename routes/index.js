@@ -38,7 +38,6 @@ router2.post("/", checkNotSetup, async function (req, res) {
     }, { 
         headers: { 'Authorization': `Bearer ${req.body.pteroapikey}` },
     })
-    console.log(passwordUpdate.data)
     res.redirect("/auth/login")
 })
 
