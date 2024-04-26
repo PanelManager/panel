@@ -29,14 +29,16 @@ router2.post("/", checkNotSetup, async function (req, res) {
         headers: { 'Authorization': `Bearer ${req.body.pteroapikey}` }
     })
     User.create({username: user.data.attributes.username, password: hashedPassword, email: user.data.attributes.email, admin: true, pteroId: req.body.pteroid, ipAddress: ipAddress})
-    /*await axios.patch(`${req.body.pterourl}/api/application/users/${req.body.pteroid}`, { 
+    const passwordUpdate = await axios.patch(`${req.body.pterourl}/api/application/users/${req.body.pteroid}`,  {
+        username: user.data.attributes.username,
+        email: user.data.attributes.email,
+        password: req.body.password,
+        first_name: user.data.attributes.first_name,
+        last_name: user.data.attributes.last_name,
+    }, { 
         headers: { 'Authorization': `Bearer ${req.body.pteroapikey}` },
-        data: [
-            {
-                password: req.body.password
-            }
-        ]
-    })*/ // TODO: FIX PASSWORD UPDATE
+    })
+    console.log(passwordUpdate.data)
     res.redirect("/auth/login")
 })
 
