@@ -46,6 +46,6 @@ const UserModel = db.define("User", {
     tableName: "users",
 })
 
-UserModel.sync({alter: true})
+UserModel.sync()
 
 module.exports = UserModel
