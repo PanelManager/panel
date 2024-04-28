@@ -22,6 +22,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
+        secure: false
     },
     store: new SequelizeStore({
         db: db
@@ -53,7 +54,7 @@ nunjucks.configure('views', {
 
 app.use("/auth", require("./routes/auth"));
 
-app.use("/", require("./routes/index").home);
+app.use("/dash", require("./routes/index").home);
 
 app.use("/setup", require("./routes/index").setup)
 

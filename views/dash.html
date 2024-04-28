@@ -5,14 +5,10 @@
 {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">PanelMgr</a>
-  </div>
-</nav>
-<div class="container">
-    <h1>Dashboard</h1>
-    <p>Welcome to the dashboard</p>
+<div class="w-screen h-screen flex flex-col items-center justify-center bg-slate-800">
+  <h1 class="text-2xl text-white font-bold mb-5">Welcome to the dashboard</h1>
+  <form action="/auth/logout" method="post">
+    <button class="bg-slate-800 hover:bg-slate-600 duration-300 text-white font-bold rounded-md h-10 w-40 mt-5" type="submit">Log out</button>
+  </form>
 </div>
-<form>
 {% endblock %}
