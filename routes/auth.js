@@ -1,5 +1,5 @@
 const express = require('express');
-const { checkNotAuth, checkSetup } = require('../handlers/checkAuth');
+const { checkNotAuth, checkSetup, checkAuth } = require('../handlers/checkAuth');
 const User = require('../models/UserModel');
 const router = express.Router()
 const bcrypt = require('bcrypt')
@@ -10,8 +10,8 @@ const axios = require('axios')
 
 router.use(checkSetup)
 
-router.get("/login", checkNotAuth, function (req, res) {
-    res.render("auth/login.html", { loginSuccess: req.flash("loginSuccess")})
+router.get("/login", checkNotAuth, async function (req, res) {
+    res.render("auth/login.html", { loginSuccess: req.flash("loginSuccess"), loginError: req.flash("error"), hostname: (await SettingsModel.findOne({where: {key: "hostname"}})).value})
 })
 
 router.post("/login", checkNotAuth, passport.authenticate("local", {
@@ -69,6 +69,15 @@ router.post("/register", checkNotAuth, async function (req, res) {
         req.flash("loginSuccess", "User registered successfully")
         res.redirect("/auth/login")
     }
+})
+
+router.post("/logout", checkAuth, async function(req, res) {
+    req.logOut(function (err) {
+        if (err) {
+            console.log(err)
+        }
+    })
+    res.redirect("/auth/login")
 })
 
 
