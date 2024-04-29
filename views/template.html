@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {% block head %}
     
     {% endblock %}
 </head>
 <body class="w-screen h-screen">
-    {% block content %}
-    {% endblock %}
+    <div class="w-screen h-screen flex flex-col items-center justify-center bg-slate-800">
+        {% block flash %}
+        {% endblock %}
+        <div class="p-20 bg-slate-700 flex flex-col items-center justify-center rounded-2xl mt-5">
+        {% block content %}
+        {% endblock %}
+        </div>
+    </div>
 </body>
 </html>
