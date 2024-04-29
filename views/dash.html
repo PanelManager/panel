@@ -1,14 +1,36 @@
-{% extends "template.html" %}
-
-{% block head %}
-<title>PanelMgr | Dashboard</title>
-{% endblock %}
-
-{% block content %}
-<div class="w-screen h-screen flex flex-col items-center justify-center bg-slate-800">
-  <h1 class="text-2xl text-white font-bold mb-5">Welcome to the dashboard</h1>
-  <form action="/auth/logout" method="post">
-    <button class="bg-slate-800 hover:bg-slate-600 duration-300 text-white font-bold rounded-md h-10 w-40 mt-5" type="submit">Log out</button>
-  </form>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/tailwind.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  {% block head %}
+  {% endblock %}
+</head>
+<body class="w-screen h-screen">
+  <div class="w-screen flex flex-col h-screen">
+    <div class="w-screen h-16 bg-slate-700 flex flex-row items-center p-3 justify-between">
+      <div class="w-max flex flex-row items-center">
+        <p class="text-white font-bold text-lg">{{ hostname }}</p>
+        <div class="bg-slate-500 w-2 h-8 rounded-2xl m-2"></div>
+        <a class="text-white text-base" href={{ pterourl }}><i class="fa-solid fa-kiwi-bird"></i>&nbsp;Pterodactyl Panel</a>
+      </div>
+      <div class="w-max flex flex-row items-center justify-between">
+        <p class="text-white text-base  m-1"><i class="fa-solid fa-coins"></i>&nbsp;{{ credits }}</p>
+        <div class="flex flex-row items-center  m-1">
+          <img src={{ "https://gravatar.com/avatar/" + gravatarhash}} class="w-8 rounded-2xl mr-2">
+          <p class="text-white text-lg">{{ username }}</p>
+        </div>
+        <form action="/auth/logout" method="post">
+          <button class="bg-slate-800 hover:bg-slate-600 duration-300 text-white font-bold rounded-md p-2" type="submit"><i class="fa-solid fa-right-from-bracket text-white text-lg"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="w-screen h-max flex flex-col flex-grow items-center justify-center bg-slate-800">
+    {% block content %}
+    {% endblock %}
+    </div>
+  </div>
+</body>
+</html>

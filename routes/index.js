@@ -5,10 +5,12 @@ const User = require('../models/UserModel');
 const router = express.Router();
 const router2 = express.Router()
 const bcrypt = require('bcrypt')
-const axios = require('axios')
+const axios = require('axios');
+const SettingsModel = require('../models/Settings');
+const { sha256 } = require('js-sha256');
 
-router.get("/", checkSetup, function (req, res) {
-    res.render("dash.html", {})
+router.get("/", checkSetup, async function (req, res) {
+    res.render("dash.html", {hostname: (await SettingsModel.findOne({where: {key: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {key: "pterourl"}})).value})
 })
 
 router2.get("/", checkNotSetup, function (req, res) {
