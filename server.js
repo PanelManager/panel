@@ -11,6 +11,7 @@ const session = require("express-session")
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
+const { rateLimit } = require('express-rate-limit');
 
 app.set("view engine", "html")
 
@@ -34,6 +35,11 @@ app.use(passport.session());
 // FLASH MESSAGES
 app.use(flash())
 
+// RATE LIMIT
+app.use(rateLimit({
+    windowMs: 5 * 60 * 1000,
+    max: 250
+}));
 
 app.use("/", express.static(path.join(__dirname, "public")))
 
