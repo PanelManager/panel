@@ -30,27 +30,30 @@
     <div class="flex flex-row flex-grow w-screen h-max bg-red-500">
       <div class="w-64 h-full flex flex-col flex-grow items-center bg-slate-700 p-2">
         <form class="w-full" action="/dash">
-          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-white p-2 text-left mb-2" type="submit"><i class="fa-solid fa-home"></i>&nbsp;&nbsp;Home</button>
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-home"></i>&nbsp;&nbsp;Home</button>
         </form>
         <form class="w-full" action="/dash/servers">
-          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-white p-2 text-left mb-2" type="submit"><i class="fa-solid fa-server"></i>&nbsp;&nbsp;Your servers</button>
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-server"></i>&nbsp;&nbsp;Your servers</button>
         </form>
         <form class="w-full" action="/dash/store">
-          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-white p-2 text-left mb-2" type="submit"><i class="fa-solid fa-store"></i>&nbsp;&nbsp;Store</button>
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-store"></i>&nbsp;&nbsp;Store</button>
         </form>
         {% if isAdmin %}
         <p class="text-slate-400 text-lg font-bold mt-2 text-center">Administration</p>
+        <form class="w-full" action="/admin/settings">
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-gear"></i>&nbsp;&nbsp;Settings</button>
+        </form>
         <form class="w-full" action="/admin/users">
-          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-white p-2 text-left mb-2" type="submit"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;Users</button>
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;Users</button>
         </form>
         <form class="w-full" action="/admin/servers">
-          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-white p-2 text-left mb-2" type="submit"><i class="fa-solid fa-server"></i>&nbsp;&nbsp;Servers</button>
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-server"></i>&nbsp;&nbsp;Servers</button>
         </form>
         <form class="w-full" action="/admin/plans">
-          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-white p-2 text-left mb-2" type="submit"><i class="fa-solid fa-plane-up"></i>&nbsp;&nbsp;Server plans</button>
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-plane-up"></i>&nbsp;&nbsp;Server plans</button>
         </form>
         <form class="w-full" action="/admin/store">
-          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-white p-2 text-left mb-2" type="submit"><i class="fa-solid fa-store"></i>&nbsp;&nbsp;Store</button>
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-store"></i>&nbsp;&nbsp;Store</button>
         </form>
         {% endif %}
       </div>
