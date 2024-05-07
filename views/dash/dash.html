@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/tailwind.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>{{ hostname }} | {{ page }}</title>
   {% block head %}
   {% endblock %}
 </head>
@@ -27,7 +28,7 @@
         </form>
       </div>
     </div>
-    <div class="flex flex-row flex-grow w-screen h-max bg-red-500">
+    <div class="flex flex-row flex-grow w-screen h-max">
       <div class="w-64 h-full flex flex-col flex-grow items-center bg-slate-700 p-2">
         <form class="w-full" action="/dash">
           <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-home"></i>&nbsp;&nbsp;Home</button>
@@ -57,9 +58,10 @@
         </form>
         {% endif %}
       </div>
-      <div class="w-full h-full flex flex-col items-center justify-center bg-slate-800">
-      {% block content %}
-      {% endblock %}
+      <div class="w-full h-full flex flex-col bg-slate-800 p-5">
+        <h1 class="text-4xl text-white font-bold mb-5">{{ page }}</h1>
+        {% block content %}
+        {% endblock %}
       </div>
     </div>
   </div>
