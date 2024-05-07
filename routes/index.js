@@ -10,7 +10,7 @@ const SettingsModel = require('../models/Settings');
 const { sha256 } = require('js-sha256');
 
 router.get("/", checkSetup, checkAuth, async function (req, res) {
-    res.render("dash.html", {hostname: (await SettingsModel.findOne({where: {key: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {key: "pterourl"}})).value, isAdmin: req.user.admin})
+    res.render("dash/home.html", {hostname: (await SettingsModel.findOne({where: {key: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {key: "pterourl"}})).value, isAdmin: req.user.admin, page: "Home"})
 })
 
 router2.get("/", checkNotSetup, function (req, res) {
