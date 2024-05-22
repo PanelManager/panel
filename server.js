@@ -13,8 +13,6 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const { rateLimit } = require('express-rate-limit');
 
-app.set("view engine", "html")
-
 app.use(bodyParser.urlencoded({ extended: false }));
 loadPassport(passport)
 app.use(session({
