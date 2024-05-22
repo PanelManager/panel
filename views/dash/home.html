@@ -1,0 +1,33 @@
+{% extends "dash/dash.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center">
+    <div class="w-fit flex flex-row items-center bg-slate-700 rounded-lg p-10 m-10">
+        <div class="flex flex-col items-center mr-5">
+            <p class="text-lg text-slate-400"><i class="fa-solid fa-server"></i>&nbsp;Your servers</p>
+            <p class="text-lg text-red-600 font-bold">TODO</p>
+        </div>
+        <div class="flex flex-col items-center">
+            <p class="text-lg text-slate-400"><i class="fa-solid fa-coins"></i>&nbsp;Your credits</p>
+            <p class="text-lg text-white font-bold">{{ credits }}</p>
+        </div>
+    </div>
+    <div class="w-1/4 flex flex-col bg-slate-700 rounded-lg p-10">
+        <h2 class="text-lg text-white font-bold">Quick start</h2>
+        <div class="flex flex-row items-center justify-between">
+            <form class="flex flex-col items-center" action="/dash/servers">
+                <button class="bg-slate-800 hover:bg-slate-600 duration-300 text-white rounded-md h-10 w-40 mt-5" type="submit"><i class="fa-solid fa-server"></i>&nbsp;Your servers</button>
+            </form>
+            <form class="flex flex-col items-center" action="/dash/store">
+                <button class="bg-slate-800 hover:bg-slate-600 duration-300 text-white rounded-md h-10 w-40 mt-5" type="submit"><i class="fa-solid fa-store"></i>&nbsp;Store</button>
+            </form>
+            <form class="flex flex-col items-center" action="/dash/profile">
+                <button class="bg-slate-800 hover:bg-slate-600 duration-300 text-white rounded-md h-10 w-40 mt-5" type="submit"><i class="fa-solid fa-user"></i>&nbsp;Your profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
