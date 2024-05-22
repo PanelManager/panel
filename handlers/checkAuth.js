@@ -34,9 +34,18 @@ async function checkNotSetup(req, res, next) {
     }
 }
 
+async function checkAdmin(req, res, next) {
+    if (req.user.admin) {
+        next()
+    } else {
+        res.redirect("/dash")
+    }
+}
+
 module.exports = {
     checkAuth,
     checkNotAuth,
     checkSetup,
-    checkNotSetup
+    checkNotSetup,
+    checkAdmin
 }

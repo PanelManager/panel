@@ -1,10 +1,11 @@
 const express = require("express")
 const router = express.Router()
-const { checkAuth, checkSetup } = require("../handlers/checkAuth") 
+const { checkAuth, checkSetup, checkAdmin } = require("../handlers/checkAuth") 
 const SettingsModel = require("../models/Settings")
 const { sha256 } = require('js-sha256');
 const UserModel = require("../models/UserModel")
 
+router.use(checkAdmin)
 
 router.get("/users", checkAuth, checkSetup, async function (req, res) {
     const users = await UserModel.findAll()
