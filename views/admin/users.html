@@ -1,0 +1,70 @@
+{% extends "dash/dash.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center">
+    <div class="w-fit flex flex-row items-center bg-slate-700 rounded-lg p-10 m-10">
+        <table class="border-separate text-lg shadow-xl rounded-lg">
+            <thead class=" bg-slate-900 text-white text-left">
+                <tr>
+                    <th class="p-3 rounded-tl-lg">ID</th>
+                    <th class="p-3">Username</th>
+                    <th class="p-3">Email</th>
+                    <th class="p-3">Credits</th>
+                    <th class="p-3">Ptero ID</th>
+                    <th class="p-3">Is admin?</th>
+                    <th class="p-3">Verified?</th>
+                    <th class="p-3 rounded-tr-lg">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-white bg-slate-800 rounded-lg">
+                {% set i = users.length %}
+                {% for user in users %}
+                {% set i = i - 1 %}
+                <tr>
+                    {% if i == 0 %}
+                    <td class="p-3 rounded-bl-lg">{{ user.id }}</td>
+                    {% else %}
+                    <td class="p-3">{{ user.id }}</td>
+                    {% endif %}
+                    <td class="p-3">{{ user.username }}</td>
+                    <td class="p-3">{{ user.email }}</td>
+                    <td class="p-3">{{ user.credits }}</td>
+                    <td class="p-3">{{ user.pteroId }}</td>
+                    {% if user.admin %}
+                    <td class="p-3 text-green-400"><i class="fa-solid fa-check"></i>&nbsp;Yes</td>
+                    {% else %}
+                    <td class="p-3 text-red-400"><i class="fa-solid fa-times"></i>&nbsp;No</td>
+                    {% endif %}
+                    {% if user.verifiedEmail %}
+                    <td class="p-3 text-green-400"><i class="fa-solid fa-check"></i>&nbsp;Verified</td>
+                    {% else %}
+                    <td class="p-3 text-red-400"><i class="fa-solid fa-times"></i>&nbsp;Not verified</td>
+                    {% endif %}
+                    {% if i == 0 %}
+                    <td class="p-3 rounded-br-lg">
+                    {% else %}
+                    <td class="p-3">
+                    {% endif %}
+                        <div class="flex flex-row">
+                            <form action="#" method="post">
+                                <button class="bg-slate-700 hover:bg-slate-600 hover:text-green-500 duration-300 text-white font-bold rounded-md p-2 mr-2" type="submit"><i class="fa-solid fa-envelope"></i></button>
+                            </form>
+                            <form action="#" method="get">
+                                <button class="bg-slate-700 hover:bg-slate-600 hover:text-blue-500 duration-300 text-white font-bold rounded-md p-2 mr-2" type="submit"><i class="fa-solid fa-pen"></i></button>
+                            </form>
+                            <form action="#" method="post">
+                                <button class="bg-slate-700 hover:bg-slate-600 hover:text-red-500 duration-300 text-white font-bold rounded-md p-2" type="submit"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
