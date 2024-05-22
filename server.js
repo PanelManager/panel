@@ -64,6 +64,8 @@ app.use("/dash", require("./routes/index").home);
 
 app.use("/setup", require("./routes/index").setup)
 
+app.use("/admin", require("./routes/admin"));
+
 
 app.listen(8000, () => {
     log.success("Server is listening on port 8000")
