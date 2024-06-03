@@ -12,6 +12,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const { rateLimit } = require('express-rate-limit');
+const { checkSetup } = require("./handlers/checkAuth");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 loadPassport(passport)
@@ -56,11 +57,14 @@ nunjucks.configure('views', {
     express: app
 });
 
-app.use("/auth", require("./routes/auth"));
 
 app.use("/dash", require("./routes/index").home);
 
 app.use("/setup", require("./routes/index").setup)
+
+app.use(checkSetup);
+
+app.use("/auth", require("./routes/auth"));
 
 app.use("/admin", require("./routes/admin"));
 

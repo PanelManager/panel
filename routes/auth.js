@@ -8,8 +8,6 @@ const SettingsModel = require('../models/Settings');
 const axios = require('axios')
 
 
-router.use(checkSetup)
-
 router.get("/login", checkNotAuth, async function (req, res) {
     res.render("auth/login.html", { loginSuccess: req.flash("loginSuccess"), loginError: req.flash("error"), hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value})
 })

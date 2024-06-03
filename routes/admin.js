@@ -5,7 +5,7 @@ const SettingsModel = require("../models/Settings")
 const { sha256 } = require('js-sha256');
 const UserModel = require("../models/UserModel")
 
-router.use(checkAdmin, checkSetup)
+router.use(checkAdmin)
 
 router.get("/users", checkAuth,  async function (req, res) {
     const users = await UserModel.findAll()
