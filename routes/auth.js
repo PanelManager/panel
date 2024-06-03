@@ -11,7 +11,7 @@ const axios = require('axios')
 router.use(checkSetup)
 
 router.get("/login", checkNotAuth, async function (req, res) {
-    res.render("auth/login.html", { loginSuccess: req.flash("loginSuccess"), loginError: req.flash("error"), hostname: (await SettingsModel.findOne({where: {key: "hostname"}})).value})
+    res.render("auth/login.html", { loginSuccess: req.flash("loginSuccess"), loginError: req.flash("error"), hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value})
 })
 
 router.post("/login", checkNotAuth, passport.authenticate("local", {
@@ -22,7 +22,7 @@ router.post("/login", checkNotAuth, passport.authenticate("local", {
 
 
 router.get("/register", checkNotAuth, async function (req, res) {
-    const hostname = await SettingsModel.findOne({where: {key: "hostname"}})
+    const hostname = await SettingsModel.findOne({where: {name: "hostname"}})
     res.render("auth/register.html", { registerError: req.flash("registerError"), hostname: hostname.value})
 })
 
@@ -31,7 +31,7 @@ router.post("/register", checkNotAuth, async function (req, res) {
     const userEmail = await User.findOne({ where: { email: req.body.email}})
     let ipCheck = await User.findOne({where: { ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress}})
     let ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-    if ((await SettingsModel.findOne({where: {key: "registerip"}})).value == 'false') {
+    if ((await SettingsModel.findOne({where: {name: "registerip"}})).value == 'false') {
         ipCheck = false
         ipAddress = null
     }
@@ -46,8 +46,8 @@ router.post("/register", checkNotAuth, async function (req, res) {
         res.redirect("/auth/register")
     } else {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const panelurl = (await SettingsModel.findOne({ where: { key: "pterourl"}})).value
-        const apikey = (await SettingsModel.findOne({ where: { key: "pteroapikey" }})).value
+        const panelurl = (await SettingsModel.findOne({ where: { name: "pterourl"}})).value
+        const apikey = (await SettingsModel.findOne({ where: { name: "pteroapikey" }})).value
         const user = await axios.post(`${panelurl}/api/application/users`, {
             email: req.body.email,
             username: req.body.username,

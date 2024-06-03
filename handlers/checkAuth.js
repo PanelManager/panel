@@ -17,7 +17,7 @@ function checkNotAuth(req, res, next) {
 }
 
 async function checkSetup(req, res, next) {
-    const findRow = await Settings.findOne({ where: { key: "setup", value: "true" } })
+    const findRow = await Settings.findOne({ where: { name: "setup", value: "true" } })
     if (findRow) {
         next()
     } else {
@@ -26,7 +26,7 @@ async function checkSetup(req, res, next) {
 }
 
 async function checkNotSetup(req, res, next) {
-    const findRow = await Settings.findOne({ where: { key: "setup", value: "true" } })
+    const findRow = await Settings.findOne({ where: { name: "setup", value: "true" } })
     if (!findRow) {
         next()
     } else {
