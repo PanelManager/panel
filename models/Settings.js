@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../handlers/db");
 
 const SettingsModel = db.define("Settings", {
-    key: {
+    name: {
         type: DataTypes.TEXT,
         allowNull: false,
         unique: true
