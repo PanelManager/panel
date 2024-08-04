@@ -16,6 +16,18 @@ const NodeModel = db.define("Node", {
         allowNull: false,
         unique: false
     },
+    cpu: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    ram: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    disk: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    }
 }, {
     timestamps: false,
     tableName: "nodes",
