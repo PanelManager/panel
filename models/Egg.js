@@ -10,12 +10,7 @@ const EggModel = db.define("Egg", {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true
-    },
-    planId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: false
-    },
+    }
 }, {
     timestamps: false,
     tableName: "eggs",

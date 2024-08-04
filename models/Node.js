@@ -11,15 +11,10 @@ const NodeModel = db.define("Node", {
         allowNull: false,
         unique: true
     },
-    planId: {
+    /*cpu: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: false
-    },
-    cpu: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
+    },*/
     ram: {
         type: DataTypes.INTEGER,
         allowNull: false,

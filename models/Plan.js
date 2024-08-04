@@ -38,6 +38,14 @@ const PlanModel = db.define("Plan", {
     price: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    eggs: {
+        type: DataTypes.ARRAY,
+        allowNull: false
+    },
+    nodes: {
+        type: DataTypes.ARRAY,
+        allowNull: false
     }
 
 }, {
