@@ -41,6 +41,9 @@
         </form>
         {% if isAdmin %}
         <p class="text-slate-400 text-lg font-bold mt-2 text-center">Administration</p>
+        <form class="w-full" action="/admin/overview">
+          <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Overview</button>
+        </form>
         <form class="w-full" action="/admin/settings">
           <button class="w-full bg-slate-700 hover:bg-slate-500 duration-300 rounded-lg text-lg text-slate-300 p-2 text-left mb-2" type="submit"><i class="fa-solid fa-gear"></i>&nbsp;&nbsp;Settings</button>
         </form>
