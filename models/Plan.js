@@ -5,7 +5,6 @@ const PlanModel = db.define("Plan", {
     name: {
         type: DataTypes.TEXT,
         allowNull: false,
-        unique: true
     },
     cpu: {
         type: DataTypes.INTEGER,
@@ -40,11 +39,11 @@ const PlanModel = db.define("Plan", {
         allowNull: false
     },
     eggs: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     nodes: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.TEXT,
         allowNull: false
     }
 
