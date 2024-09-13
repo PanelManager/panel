@@ -9,6 +9,7 @@ const Node = require("../models/Node")
 const Egg = require("../models/Egg")
 const Server = require("../models/Server")
 const Plan = require("../models/Plan")
+const Nest = require("../models/Nest")
 
 router.use(checkAdmin)
 
@@ -21,9 +22,31 @@ router.get("/overview", checkAuth, checkAdmin, async function (req, res) {
     const nodesCount = await Node.count()
     const eggsCount = await Egg.count()
     const serversCount = await Server.count()
+    const nestsCount = await Nest.count()
 
     const eggsData = await Egg.findAll()
-    res.render("admin/overview.html", {hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Overview", users: usersCount, nodes: nodesCount, eggs: eggsCount, servers: serversCount, eggsData: eggsData})
+    const nestsData = await Nest.findAll()
+    const nodesData = await Node.findAll()
+
+    const renderData = {
+        hostname: (await SettingsModel.findOne({ where: { name: "hostname" } })).value,
+        username: req.user.username,
+        gravatarhash: sha256(req.user.email),
+        credits: req.user.credits,
+        pterourl: (await SettingsModel.findOne({ where: { name: "pterourl" } })).value,
+        isAdmin: req.user.admin,
+        page: "Overview",
+        users: usersCount,
+        nodes: nodesCount,
+        eggs: eggsCount,
+        servers: serversCount,
+        eggsData: eggsData,
+        nests: nestsCount,
+        nestsData: nestsData,
+        nodesData: nodesData,
+    };
+
+    res.render("admin/overview.html", renderData);
 })
 
 router.get("/users", checkAuth, checkAdmin,  async function (req, res) {
@@ -55,47 +78,54 @@ router.get("/sync", checkAuth, async function (req, res) {
     const nodes = await axios.get(`${panelurl}/api/application/nodes`, {
         headers: { 'Authorization': `Bearer ${apikey}` }
     })
-    nodes.data.data.forEach(async (node) => {
-        const nodeDb = await Node.findOne({where: {pteroId: node.attributes.id}})
+    await Promise.all(nodes.data.data.map(async (node) => {
+        const nodeDb = await Node.findOne({ where: { pteroId: node.attributes.id } });
         if (nodeDb) {
-            nodeDb.name = node.attributes.name
-            //nodeDb.cpu = node.attributes.cpu // TODO: Get CPU information from API
-            nodeDb.ram = node.attributes.memory
-            nodeDb.disk = node.attributes.disk
-            nodeDb.save()
-            return
+            nodeDb.name = node.attributes.name;
+            //nodeDb.cpu = node.attributes.cpu; // TODO: Get CPU information from API
+            nodeDb.ram = node.attributes.memory;
+            nodeDb.disk = node.attributes.disk;
+            await nodeDb.save();
+            return;
         }
-        Node.create({
+        await Node.create({
             name: node.attributes.name,
             pteroId: node.attributes.id,
             //cpu: node.attributes.cpu, // TODO: Get CPU information from API
             ram: node.attributes.memory,
             disk: node.attributes.disk,
-        })
-    })
-
-    // SYNC EGGS
+        });
+    }));
+    
+    // SYNC NESTS & EGGS
     const nests = await axios.get(`${panelurl}/api/application/nests`, {
         headers: { 'Authorization': `Bearer ${apikey}` }
-    })
-    nests.data.data.forEach(async (nest) => {
+    });
+    await Promise.all(nests.data.data.map(async (nest) => {
         const eggs = await axios.get(`${panelurl}/api/application/nests/${nest.attributes.id}/eggs`, {
             headers: { 'Authorization': `Bearer ${apikey}` }
-        })
-        eggs.data.data.forEach(async (egg) => {
-            const eggDb = await Egg.findOne({where: {pteroId: egg.attributes.id}})
+        });
+        await Nest.create({
+            name: nest.attributes.name,
+            pteroId: nest.attributes.id
+        });
+        await Promise.all(eggs.data.data.map(async (egg) => {
+            const eggDb = await Egg.findOne({ where: { pteroId: egg.attributes.id } });
             if (eggDb) {
-                eggDb.name = egg.attributes.name
-                eggDb.save()
-                return
+                eggDb.name = egg.attributes.name;
+                await eggDb.save();
+                return;
             }
-            Egg.create({
+            await Egg.create({
                 name: egg.attributes.name,
                 pteroId: egg.attributes.id,
-            })
-        })
-    })
-    res.redirect("/admin")
+                nestId: nest.attributes.id
+            });
+        }));
+    }));
+    
+    res.redirect("/admin");
+
 })
 
 module.exports = router
