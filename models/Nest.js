@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../handlers/db");
 
-const EggModel = db.define("Egg", {
+const NestModel = db.define("Nest", {
     name: {
         type: DataTypes.TEXT,
         allowNull: false,
@@ -10,16 +10,12 @@ const EggModel = db.define("Egg", {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true
-    },
-    nestId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
+    }
 }, {
     timestamps: false,
-    tableName: "eggs",
+    tableName: "nests",
 })
 
-EggModel.sync()
+NestModel.sync()
 
-module.exports = EggModel
+module.exports = NestModel;
