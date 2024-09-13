@@ -54,7 +54,8 @@ try {
 
 nunjucks.configure('views', {
     autoescape: true,
-    express: app
+    express: app,
+    watch: true
 });
 
 
