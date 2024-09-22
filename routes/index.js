@@ -18,30 +18,37 @@ router2.get("/", checkNotSetup, function (req, res) {
 })
 
 router2.post("/", checkNotSetup, async function (req, res) {
-    // BASIC SETUP
-    Settings.create({name: "setup", value: "true", type: "boolean"})
-    Settings.create({name: "hostname", value: req.body.hostname, type: "string"})
-    Settings.create({name: "pterourl", value: req.body.pterourl, type: "string"})
-    Settings.create({name: "pteroapikey", value: req.body.pteroapikey, type: "string"})
-    Settings.create({name: "registerip", value: "false", type: "boolean"})
-
-    // ADMIN SETUP
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress
     const user = await axios.get(`${req.body.pterourl}/api/application/users/${req.body.pteroid}`, {
-        headers: { 'Authorization': `Bearer ${req.body.pteroapikey}` }
-    })
-    User.create({username: user.data.attributes.username, password: hashedPassword, email: user.data.attributes.email, admin: true, pteroId: req.body.pteroid, ipAddress: ipAddress})
-    const passwordUpdate = await axios.patch(`${req.body.pterourl}/api/application/users/${req.body.pteroid}`,  {
-        username: user.data.attributes.username,
-        email: user.data.attributes.email,
-        password: req.body.password,
-        first_name: user.data.attributes.first_name,
-        last_name: user.data.attributes.last_name,
-    }, { 
         headers: { 'Authorization': `Bearer ${req.body.pteroapikey}` },
+        validateStatus: function (status) {
+            return status < 500
+        }
     })
-    res.redirect("/auth/login")
+    if (user.status === 200) {
+        // BASIC SETUP
+        Settings.create({name: "setup", value: "true", type: "boolean"})
+        Settings.create({name: "hostname", value: req.body.hostname, type: "string"})
+        Settings.create({name: "pterourl", value: req.body.pterourl, type: "string"})
+        Settings.create({name: "pteroapikey", value: req.body.pteroapikey, type: "string"})
+        Settings.create({name: "registerip", value: "false", type: "boolean"})
+
+        // ADMIN SETUP
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+        User.create({username: user.data.attributes.username, password: hashedPassword, email: user.data.attributes.email, admin: true, pteroId: req.body.pteroid, ipAddress: ipAddress})
+        const passwordUpdate = await axios.patch(`${req.body.pterourl}/api/application/users/${req.body.pteroid}`,  {
+            username: user.data.attributes.username,
+            email: user.data.attributes.email,
+            password: req.body.password,
+            first_name: user.data.attributes.first_name,
+            last_name: user.data.attributes.last_name,
+        }, { 
+            headers: { 'Authorization': `Bearer ${req.body.pteroapikey}` },
+        })
+        res.redirect("/auth/login")
+    } else {
+        res.render("setup.html", {setupError: "Invalid Pterodactyl API Key or URL"})
+    }
 })
 
 
