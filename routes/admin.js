@@ -9,7 +9,8 @@ const Node = require("../models/Node")
 const Egg = require("../models/Egg")
 const Server = require("../models/Server")
 const Plan = require("../models/Plan")
-const Nest = require("../models/Nest")
+const Nest = require("../models/Nest");
+const PlanModel = require("../models/Plan");
 
 router.use(checkAdmin)
 
@@ -68,6 +69,12 @@ router.get("/servers", checkAuth, checkAdmin, async function (req, res) {
         return serverObject;
     }))
     res.render("admin/servers.html", {hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Servers", servers: serversArray})
+})
+
+
+router.get("/plans", checkAuth, checkAdmin, async function (req, res) {
+    const plans = await PlanModel.findAll()
+    res.render("admin/plans.html", {plans: plans, hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Plans"})
 })
 
 

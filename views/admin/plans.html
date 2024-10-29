@@ -1,0 +1,56 @@
+{% extends "dash/dash.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center">
+    <div class="w-fit flex flex-row items-center bg-slate-700 rounded-lg p-10 m-10">
+        <table class="border-separate text-lg shadow-xl rounded-lg">
+            <thead class=" bg-slate-900 text-white text-left">
+                <tr>
+                    <th class="p-3 rounded-tl-lg">ID</th>
+                    <th class="p-3">Name</th>
+                    <th class="p-3">CPU</th>
+                    <th class="p-3">Ram</th>
+                    <th class="p-3">Disk</th>
+                    <th class="p-3">Price</th>
+                    <th class="p-3 rounded-tr-lg">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-white bg-slate-800 rounded-lg">
+                {% set i = plans.length %}
+                {% for plan in plans %}
+                {% set i = i - 1 %}
+                <tr>
+                    {% if i == 0 %}
+                    <td class="p-3 rounded-bl-lg">{{ plan.id }}</td>
+                    {% else %}
+                    <td class="p-3">{{ plan.id }}</td>
+                    {% endif %}
+                    <td class="p-3">{{ plan.name }}</td>
+                    <td class="p-3">{{ plan.cpu }}</td>
+                    <td class="p-3">{{ plan.ram }}</td>
+                    <td class="p-3">{{ plan.disk }}</td>
+                    <td class="p-3">{{ plan.price }}</td>
+                    {% if i == 0 %}
+                    <td class="p-3 rounded-br-lg">
+                    {% else %}
+                    <td class="p-3">
+                    {% endif %}
+                        <div class="flex flex-row">
+                            <form action="#" method="get">
+                                <button class="bg-slate-700 hover:bg-slate-600 hover:text-blue-500 duration-300 text-white font-bold rounded-md p-2 mr-2" type="submit"><i class="fa-solid fa-pen"></i></button>
+                            </form>
+                            <form action="#" method="post">
+                                <button class="bg-slate-700 hover:bg-slate-600 hover:text-red-500 duration-300 text-white font-bold rounded-md p-2" type="submit"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
