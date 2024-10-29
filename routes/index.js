@@ -8,9 +8,27 @@ const bcrypt = require('bcrypt')
 const axios = require('axios');
 const SettingsModel = require('../models/Settings');
 const { sha256 } = require('js-sha256');
+const Server = require("../models/Server");
+const Plan = require("../models/Plan");
+const Egg = require("../models/Egg");
 
 router.get("/", checkSetup, checkAuth, async function (req, res) {
-    res.render("dash/home.html", {hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Home"})
+    const serverCount = await Server.count({where: {ownerId: req.user.id}})
+    res.render("dash/home.html", {hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Home", serverCount: serverCount})
+})
+
+router.get("/servers", checkSetup, checkAuth, async function (req, res) {
+    const servers = await Server.findAll({where: {ownerId: req.user.id}})
+    const serversArray = await Promise.all(servers.map(async server => {
+        let serverObject = {
+            id: server.id,
+            name: server.name,
+            plan: (await Plan.findOne({where: {id: server.planId}})).name,
+            egg: (await Egg.findOne({where: {id: server.eggId}})).name,
+        }
+        return serverObject;
+    }))
+    res.render("dash/servers.html", {hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, servers: serversArray, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Your servers"})
 })
 
 router2.get("/", checkNotSetup, function (req, res) {

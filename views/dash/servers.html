@@ -1,0 +1,52 @@
+{% extends "dash/dash.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center">
+    <div class="w-fit flex flex-row items-center bg-slate-700 rounded-lg p-10 m-10">
+        <table class="border-separate text-lg shadow-xl rounded-lg">
+            <thead class=" bg-slate-900 text-white text-left">
+                <tr>
+                    <th class="p-3 rounded-tl-lg">ID</th>
+                    <th class="p-3">Name</th>
+                    <th class="p-3">Plan</th>
+                    <th class="p-3">Egg</th>
+                    <th class="p-3 rounded-tr-lg">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-white bg-slate-800 rounded-lg">
+                {% set i = servers.length %}
+                {% for server in servers %}
+                {% set i = i - 1 %}
+                <tr>
+                    {% if i == 0 %}
+                    <td class="p-3 rounded-bl-lg">{{ server.id }}</td>
+                    {% else %}
+                    <td class="p-3">{{ server.id }}</td>
+                    {% endif %}
+                    <td class="p-3">{{ server.name }}</td>
+                    <td class="p-3">{{ server.plan }}</td>
+                    <td class="p-3">{{ server.egg }}</td>
+                    {% if i == 0 %}
+                    <td class="p-3 rounded-br-lg">
+                    {% else %}
+                    <td class="p-3">
+                    {% endif %}
+                        <div class="flex flex-row">
+                            <form action="#" method="get">
+                                <button class="bg-slate-700 hover:bg-slate-600 hover:text-blue-500 duration-300 text-white font-bold rounded-md p-2 mr-2" type="submit"><i class="fa-solid fa-pen"></i></button>
+                            </form>
+                            <form action="#" method="post">
+                                <button class="bg-slate-700 hover:bg-slate-600 hover:text-red-500 duration-300 text-white font-bold rounded-md p-2" type="submit"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
