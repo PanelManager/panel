@@ -12,6 +12,9 @@ const Server = require("../models/Server");
 const Plan = require("../models/Plan");
 const Egg = require("../models/Egg");
 
+
+// /DASH
+
 router.get("/", checkSetup, checkAuth, async function (req, res) {
     const serverCount = await Server.count({where: {ownerId: req.user.id}})
     res.render("dash/home.html", {hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Home", serverCount: serverCount})
@@ -20,16 +23,27 @@ router.get("/", checkSetup, checkAuth, async function (req, res) {
 router.get("/servers", checkSetup, checkAuth, async function (req, res) {
     const servers = await Server.findAll({where: {ownerId: req.user.id}})
     const serversArray = await Promise.all(servers.map(async server => {
+        const plan = await Plan.findOne({where: {id: server.planId}})
         let serverObject = {
             id: server.id,
             name: server.name,
-            plan: (await Plan.findOne({where: {id: server.planId}})).name,
+            plan: plan.name,
             egg: (await Egg.findOne({where: {id: server.eggId}})).name,
+            price: plan.price,
+            hourPrice: (plan.price / 720).toFixed(2)
         }
         return serverObject;
     }))
     res.render("dash/servers.html", {hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, servers: serversArray, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Your servers"})
 })
+
+
+router.get("/profile", checkSetup, checkAuth, async function (req, res) {
+    const user = await User.findOne({where: {id: req.user.id}})
+    res.render("dash/profile.html", {hostname: (await SettingsModel.findOne({where: {name: "hostname"}})).value, username: req.user.username, gravatarhash: sha256(req.user.email), credits: req.user.credits, pterourl: (await SettingsModel.findOne({where: {name: "pterourl"}})).value, isAdmin: req.user.admin, page: "Profile", user: user})
+})
+
+// /SETUP
 
 router2.get("/", checkNotSetup, function (req, res) {
     res.render("setup.html", {})
