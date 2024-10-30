@@ -13,6 +13,8 @@
                     <th class="p-3">Name</th>
                     <th class="p-3">Plan</th>
                     <th class="p-3">Egg</th>
+                    <th class="p-3">Price/mo</th>
+                    <th class="p-3">Price/hour</th>
                     <th class="p-3 rounded-tr-lg">Actions</th>
                 </tr>
             </thead>
@@ -29,6 +31,8 @@
                     <td class="p-3">{{ server.name }}</td>
                     <td class="p-3">{{ server.plan }}</td>
                     <td class="p-3">{{ server.egg }}</td>
+                    <td class="p-3">{{ server.price }}</td>
+                    <td class="p-3">{{ server.hourPrice }}</td>
                     {% if i == 0 %}
                     <td class="p-3 rounded-br-lg">
                     {% else %}
