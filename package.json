@@ -4,7 +4,6 @@
   "description": "A manager dashboard for ptero/pelican panel.",
   "main": "index.js",
   "scripts": {
-    "css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css",
     "css-watch": "npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css --watch"
   },
   "repository": {
