@@ -33,6 +33,7 @@
     "express": "^4.21.1",
     "express-rate-limit": "^7.4.0",
     "express-session": "^1.18.1",
+    "flowbite": "^2.5.2",
     "js-sha256": "^0.11.0",
     "mariadb": "^3.4.0",
     "nunjucks": "^3.2.4",
