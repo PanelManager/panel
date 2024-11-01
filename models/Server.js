@@ -22,7 +22,10 @@ const ServerModel = db.define("Server", {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-
+    nodeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
 
 }, {
     timestamps: false,
