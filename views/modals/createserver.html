@@ -1,0 +1,42 @@
+{% extends "modals/modal.html" %}
+
+
+{% block content %}
+<form class="grid grid-cols-2 gap-4 p-5" action="/auth/login" method="post">
+    <div class="flex flex-col gap-2 col-span-1">
+        <label for="servername" class="text-white mr-2">Server name</label>
+        <input type="text" class="rounded-md h-10 pl-2 bg-slate-700 border-2 border-slate-400 text-white" placeholder="Server name" id="servername" name="servername" required>
+    </div>
+    <div class="flex flex-col gap-2 col-span-1">
+        <label for="egg" class="text-white mr-2">Egg</label>
+        <select class="text-white bg-slate-700 border-2 border-slate-400 rounded-md h-10" id="egg" name="egg" required>
+            <option value="" disabled selected>Select an egg</option>
+            {% for nest in nests %}
+            <optgroup label="{{ nest.name }}">
+                {% for egg in eggs %}
+                    {% if egg.nestId == nest.id %}
+                    <option value="{{ egg.id }}">{{ egg.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </optgroup>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="flex flex-col gap-2 col-span-2">
+        <label for="node" class="text-white mr-2">Node</label>
+        <select class="text-white bg-slate-700 border-2 border-slate-400 rounded-md h-10" id="node" name="node" required>
+            <option value="" disabled selected>Select a node</option>
+            {% for node in nodes %}
+            <option value="{{ node.id }}">{{ node.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div id="plan-details" class="grid grid-cols-3 gap-2 col-span-2 text-white">
+    </div>
+    <button class="bg-slate-800 hover:bg-slate-600 duration-300 text-white font-bold rounded-md h-10 w-40 mt-5" type="submit">Create a server</button>
+</form>
+
+
+
+<script src="/js/fetchPlans.js"></script>
+{% endblock %}
