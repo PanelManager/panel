@@ -69,6 +69,8 @@ app.use("/auth", require("./routes/auth"));
 
 app.use("/admin", require("./routes/admin"));
 
+app.use("/api", require("./routes/api"));
+
 
 app.listen(8000, () => {
     log.success("Server is listening on port 8000")
